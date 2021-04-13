@@ -73,4 +73,4 @@ const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})
     }
 })
 
-client.login(config.token)
+client.login(process.env.DJS_TOKEN)
