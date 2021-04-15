@@ -11,6 +11,7 @@ const { join } = require('path');
 const config = require('./config.json');
 client.config = config;
 
+const leveling = require('discord-leveling')
 const db = require('quick.db');
 
 const distube = require('distube');
@@ -37,34 +38,8 @@ client.on("error", console.error);
 
 client.on('ready', () => {
     console.log('I am ready');
-    client.user.setActivity(`RATIK PLAYS `, { type: "SUBSCRIBE"})
+    client.user.setActivity(` ;help`)
 });
-
-
-let stats = {
-    serverID: '<ID>',
-    total: "<ID>",
-    member: "<ID>",
-    bots: "<ID>"
-}
-
-
-
-client.on('guildMemberAdd', member => {
-    if(member.guild.id !== stats.serverID) return;
-    client.channels.cache.get(stats.total).setName(`Total Users: ${member.guild.memberCount}`);
-    client.channels.cache.get(stats.member).setName(`Members: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
-    client.channels.cache.get(stats.bots).setName(`Bots: ${member.guild.members.cache.filter(m => m.user.bot).size}`);
-})
-
-client.on('guildMemberRemove', member => {
-    if(member.guild.id !== stats.serverID) return;
-    client.channels.cache.get(stats.total).setName(`Total Users: ${member.guild.memberCount}`);
-    client.channels.cache.get(stats.member).setName(`Members: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
-    client.channels.cache.get(stats.bots).setName(`Bots: ${member.guild.members.cache.filter(m => m.user.bot).size}`);
-
-    
-})
 
 client.on("message", async message => {
 
@@ -73,6 +48,15 @@ client.on("message", async message => {
 
     let prefix = await db.get(`prefix_${message.guild.id}`);
     if(prefix === null) prefix = default_prefix;
+
+    let profile = await leveling.Fetch(message.author.id);
+    leveling.AddXp(message.author.id, 15);
+
+    if (profile.xp + 15 > 200) {
+        leveling.AddLevel(message.author.id, 1);
+        leveling.SetXp(message.author.id, 0)
+        message.channel.send(`GG ${message.author.username}, you just advanced to level ${profile.level + 1}`)
+    }
 
     const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
