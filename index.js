@@ -37,11 +37,34 @@ client.on("error", console.error);
 
 client.on('ready', () => {
     console.log('I am ready');
-    client.user.setActivity(`TO RATIK PLAYS `, { type: "SUBSCRIBE"})
+    client.user.setActivity(`RATIK PLAYS `, { type: "SUBSCRIBE"})
 });
 
 
+let stats = {
+    serverID: '<ID>',
+    total: "<ID>",
+    member: "<ID>",
+    bots: "<ID>"
+}
+
+
+
+client.on('guildMemberAdd', member => {
+    if(member.guild.id !== stats.serverID) return;
+    client.channels.cache.get(stats.total).setName(`Total Users: ${member.guild.memberCount}`);
+    client.channels.cache.get(stats.member).setName(`Members: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
+    client.channels.cache.get(stats.bots).setName(`Bots: ${member.guild.members.cache.filter(m => m.user.bot).size}`);
+})
+
+client.on('guildMemberRemove', member => {
+    if(member.guild.id !== stats.serverID) return;
+    client.channels.cache.get(stats.total).setName(`Total Users: ${member.guild.memberCount}`);
+    client.channels.cache.get(stats.member).setName(`Members: ${member.guild.members.cache.filter(m => !m.user.bot).size}`);
+    client.channels.cache.get(stats.bots).setName(`Bots: ${member.guild.members.cache.filter(m => m.user.bot).size}`);
+
     
+})
 
 client.on("message", async message => {
 
@@ -73,4 +96,4 @@ const prefixRegex = new RegExp(`^(<@!?${client.user.id}>|${escapeRegex(prefix)})
     }
 })
 
-client.login(process.env.DJS_TOKEN)
+client.login(token);

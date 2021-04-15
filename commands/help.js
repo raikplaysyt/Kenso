@@ -1,33 +1,35 @@
 const pagination = require('discord.js-pagination');
 const Discord = require('discord.js');
+const { help } = require('mathjs');
 
 module.exports = {
     name: "help",
     description: "The help command, what do you expect?",
 
-    async run (client, message, args){
+    async run(client, message, args) {
 
         //Sort your commands into categories, and make seperate embeds for each category
 
         const helpemded = new Discord.MessageEmbed()
-        .setTitle('These are the commands')
-        .addField('`k?kick`', 'Kicks a member from your server via mention or ID')
-        .addField('`k?ban`', 'Bans a member from your server via mention or ID')
-        .addField('`k?clear`', 'Purges messages')
-        .addField('`k?meme`', 'Generates a random meme')
-        .addField('`k?ascii`', 'Converts text into ascii')
-        .addField('`k?calculate`', )
-        .addField('`k?ping`', 'Get the bot\'s API ping')
-        .addField('`k?weather`', 'Checks weather forecast for provided location')
-        .addField('`k?setprefix`', 'Sets a custom prefix')
-        .addField('`k?play`', 'Plays that song that you type')
-        .addField('`k?stop`', 'Stops the song that is currently plaing')
-        .addField('`k?work`', 'Work for money')
-        .addField('`k?bal`', ('It stands for balence It is used for checking your balence'))
-        .addField('`k?say`', 'the bot says what youwant it to say! for e.g k?say Hi')
-        .addField('`k?trigger`', ('Trigger yourself'))
-        .addField('`k?mute`', ('Mute someone from the server for e.g k?mute @RATIK PLAYS YT'))
-        .setTimestamp()
-        message.channel.send(helpemded)
+            .setTitle('Moderation')
+            .addField('`;kick`', 'Kicks a member from your server via mention or ID')
+            .addField('`;ban`', 'Bans a member from your server via mention or ID')
+            .addField('`;clear`', 'Purges messages')
+            .addField('`;meme`', 'Generates a random meme')
+            .addField('`;ascii`', 'Converts text into ascii')
+            .addField('`;calculate`',)
+            .addField('`;ping`', 'Get the bot\'s API ping')
+            .addField('`;weather`', 'Checks weather forecast for provided location')
+            .addField('`;setprefix`', 'Sets a custom prefix')
+            .addField('`;play`', 'Plays that song that you type')
+            .addField('`;stop`', 'Stops the song that is currently plaing')
+            .addField('`;skip`', 'Skips the current song')
+            .addField('`;work`', 'Work for money')
+            .addField('`;bal`', 'It stands for balence It is used for checking your balence')
+            .addField('`k?say`', 'the bot says what you want it to say! for e.g k ? say Hi')
+            .addField('`;trigger`', 'Trigger yourself')
+            .addField('`;mute`', 'Mute someone from the server for e.g k ? mute @RATIK PLAYS YT')
+            .setTimestamp()
+            message.channel.send(helpemded)
     }
 }
